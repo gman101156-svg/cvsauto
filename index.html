@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CVS Automotive — Engineering Tomorrow's Mobility</title>
+  <meta name="description" content="CVS Automotive is developing the Model One, a premium all-electric luxury sedan engineered for Canadian conditions." />
+  <style>
+    :root {
+      --primary: #0A1628;
+      --accent: #00A3E0;
+      --accent-hover: #0090c5;
+      --light: #F4F7FA;
+      --text: #1A1A1A;
+      --muted: #5A6A7A;
+      --white: #ffffff;
+      --border: #E2E8F0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      line-height: 1.55;
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header */
+    header {
+      background: var(--primary);
+      color: var(--white);
+      padding: 0.95rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.4px;
+      text-decoration: none;
+      color: var(--white);
+    }
+
+    .logo-mark {
+      width: 28px;
+      height: 28px;
+      background: var(--accent);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .logo span { color: var(--accent); }
+
+    nav a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      margin-left: 1.4rem;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--accent); }
+
+
+    .hero-image { width: 100%; display: block; line-height: 0; background: #0a1628; }
+    .hero-image img { display: block; width: 100%; height: auto; object-fit: cover; }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(145deg, #0A1628 0%, #0f2744 45%, #0c3d5e 100%);
+      color: var(--white);
+      padding: 5rem 1.5rem 4.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0,163,224,0.18), transparent);
+      pointer-events: none;
+    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(0,163,224,0.15);
+      border: 1px solid rgba(0,163,224,0.35);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      border-radius: 99px;
+      margin-bottom: 1.3rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.1rem, 5.5vw, 3.1rem);
+      font-weight: 750;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.6px;
+      line-height: 1.15;
+    }
+
+    .hero .tagline {
+      color: var(--accent);
+      font-size: 1.2rem;
+      margin-bottom: 1.35rem;
+      font-weight: 500;
+    }
+
+    .hero p {
+      opacity: 0.88;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 0.9rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.78rem 1.55rem;
+      border-radius: 7px;
+      font-weight: 600;
+      font-size: 0.93rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--white);
+      box-shadow: 0 4px 14px rgba(0,163,224,0.35);
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      border: 1.5px solid rgba(255,255,255,0.35);
+      color: var(--white);
+    }
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Sections */
+    section {
+      padding: 3.6rem 1.5rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    h2 {
+      font-size: 1.55rem;
+      color: var(--primary);
+      margin-bottom: 0.3rem;
+      letter-spacing: -0.3px;
+    }
+
+    .section-sub {
+      color: var(--muted);
+      margin-bottom: 1.6rem;
+      font-size: 0.95rem;
+    }
+
+    /* ===== SPECS: Product-style Grid ===== */
+    .specs {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 0.9rem;
+    }
+
+    .spec-card {
+      background: var(--light);
+      border-radius: 10px;
+      padding: 1.25rem 0.9rem;
+      text-align: center;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .spec-card:hover {
+      border-color: rgba(0,163,224,0.45);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+    }
+
+    .spec-card .value {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.2rem;
+    }
+    .spec-card .label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 500;
+    }
+
+    .note {
+      margin-top: 1.2rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* ===== BENTO FEATURE GRID ===== */
+    .bento {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: auto auto;
+      gap: 1rem;
+    }
+
+    .bento-item {
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.35rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .bento-item:hover {
+      border-color: rgba(0,163,224,0.4);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+    }
+
+    .bento-item.large {
+      grid-column: span 2;
+      grid-row: span 2;
+      background: linear-gradient(145deg, #0A1628, #12253f);
+      color: var(--white);
+      min-height: 240px;
+      justify-content: flex-end;
+    }
+    .bento-item.large h3 { color: var(--white); }
+    .bento-item.large p { color: rgba(255,255,255,0.75); }
+
+    .bento-item.wide {
+      grid-column: span 2;
+    }
+
+    .bento-item h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.35rem;
+      color: var(--primary);
+    }
+    .bento-item p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ===== FUNDING STRIP ===== */
+    .funding {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1.5rem;
+      align-items: center;
+      background: linear-gradient(145deg, #0A1628, #12253f);
+      color: var(--white);
+      border-radius: 14px;
+      padding: 1.8rem 2rem;
+      margin-top: 2rem;
+    }
+
+    .funding .amount {
+      font-size: 2rem;
+      font-weight: 750;
+      color: var(--accent);
+      letter-spacing: -0.5px;
+      white-space: nowrap;
+    }
+
+    .funding p {
+      opacity: 0.88;
+      font-size: 0.95rem;
+      margin-top: 0.25rem;
+    }
+
+    .funding .label {
+      font-size: 0.8rem;
+      opacity: 0.7;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    /* Contact */
+    .contact-box {
+      background: var(--light);
+      border-radius: 14px;
+      padding: 2.4rem 1.8rem;
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+    .contact-box h2 { margin-bottom: 0.5rem; }
+    .contact-box > p {
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+      font-size: 0.98rem;
+    }
+    .contact-location {
+      margin-top: 1.3rem;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    footer {
+      background: var(--primary);
+      color: rgba(255,255,255,0.65);
+      text-align: center;
+      padding: 2rem 1.5rem;
+      font-size: 0.85rem;
+    }
+    footer strong { color: var(--white); }
+    .disclaimer {
+      font-size: 0.72rem;
+      opacity: 0.55;
+      margin-top: 0.7rem;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.45;
+    }
+
+    /* Responsive */
+    @media (max-width: 800px) {
+      .bento {
+        grid-template-columns: 1fr 1fr;
+      }
+      .bento-item.large {
+        grid-column: span 2;
+        grid-row: span 1;
+        min-height: 180px;
+      }
+      .bento-item.wide {
+        grid-column: span 2;
+      }
+      .funding {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 640px) {
+      nav { display: none; }
+      .hero { padding: 3.6rem 1.2rem 3.2rem; }
+      section { padding: 2.6rem 1.2rem; }
+      .specs { grid-template-columns: repeat(2, 1fr); }
+      .bento { grid-template-columns: 1fr; }
+      .bento-item.large,
+      .bento-item.wide {
+        grid-column: span 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="#" class="logo">
+      <div class="logo-mark">CVS</div>
+      CVS <span>AUTOMOTIVE</span>
+    </a>
+    <nav>
+      <a href="#model-one">Model One</a>
+      <a href="#approach">Approach</a>
+      <a href="#contact">Contact</a>
+      <a href="#customer-interest">Early Interest</a>
+    </nav>
+  </header>
+
+  <div class="hero-image" aria-label="CVS Model One electric vehicle concept banner"><img src="cvs-model-one-hero.png" alt="Pearl white CVS Model One electric sedan outside CVS Automotive headquarters" /></div>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">Concept Stage · Ontario, Canada</div>
+      <h1>CVS Automotive</h1>
+      <div class="tagline">Engineering Tomorrow's Mobility</div>
+      <p>Developing the Model One — a premium all-electric luxury sedan designed for real North American conditions, with particular strength in cold-weather performance.</p>
+      <div class="cta-row">
+        <a href="#model-one" class="btn btn-primary">Explore Model One</a>
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="model-one">
+    <h2>Model One</h2>
+    <p class="section-sub">Flagship premium all-electric sedan</p>
+
+    <!-- Product-style auto-fill grid -->
+    <div class="specs">
+      <div class="spec-card">
+        <div class="value">Dual-Motor</div>
+        <div class="label">All-Wheel Drive</div>
+      </div>
+      <div class="spec-card">
+        <div class="value">800 V</div>
+        <div class="label">Architecture</div>
+      </div>
+      <div class="spec-card">
+        <div class="value">85–90 kWh</div>
+        <div class="label">Battery Target</div>
+      </div>
+      <div class="spec-card">
+        <div class="value">500–600 km</div>
+        <div class="label">Range Target</div>
+      </div>
+      <div class="spec-card">
+        <div class="value">4–5 s</div>
+        <div class="label">0–100 km/h</div>
+      </div>
+      <div class="spec-card">
+        <div class="value">Pearl White</div>
+        <div class="label">Launch Colour</div>
+      </div>
+    </div>
+    <p class="note">All figures are engineering targets only and are not certified or guaranteed performance claims.</p>
+  </section>
+
+  <section id="approach">
+    <h2>Our Approach</h2>
+    <p class="section-sub">Own the product. Partner for execution.</p>
+
+    <!-- Bento Grid -->
+    <div class="bento">
+      <div class="bento-item large">
+        <h3>Clean-Sheet Platform</h3>
+        <p>We own the vehicle architecture and design language while sourcing proven automotive components. Dual-motor AWD on an 800 V system built for Canadian winters.</p>
+      </div>
+      <div class="bento-item">
+        <h3>Contract Manufacturing</h3>
+        <p>Partner with Ontario engineering and manufacturing firms instead of building a factory first.</p>
+      </div>
+      <div class="bento-item">
+        <h3>Canadian Focus</h3>
+        <p>Cold-weather battery performance, winter traction, corrosion protection and real Canadian roads.</p>
+      </div>
+      <div class="bento-item wide">
+        <h3>Stage-Gated Development</h3>
+        <p>Disciplined funding and technical gates from feasibility through prototype to production readiness. Clear milestones, no automatic phase progression.</p>
+      </div>
+    </div>
+
+    <!-- Funding strip using grid -->
+    <div class="funding">
+      <div>
+        <div class="label">Phase 1 Feasibility Funding Target</div>
+        <p>Architecture study · Design package · Supplier outreach · Regulatory assessment · Financial model</p>
+      </div>
+      <div class="amount">CAD $500,000</div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-box">
+      <h2>Let’s Talk</h2>
+      <p>Interested in partnership, investment, or technical collaboration?<br>
+         We are currently in the feasibility stage and open to qualified discussions.</p>
+      <a href="mailto:hello@cvsautomotive.com" class="btn btn-primary">hello@cvsautomotive.com</a>
+      <div class="contact-location">Greater Toronto Area · Ontario, Canada</div>
+    </div>
+  </section>
+
+
+  <section id="customer-interest" style="padding:4rem 1.5rem;background:#f4f7fa;">
+    <div style="max-width:900px;margin:0 auto;background:#fff;padding:2rem;border-radius:18px;border:1px solid #e2e8f0;box-shadow:0 10px 35px rgba(10,22,40,.06);">
+      <h2>Stay Updated on the CVS Model One</h2>
+      <p style="margin:0.75rem 0 1.5rem;color:#5a6a7a;">Join the early-interest list. Tell us how you would like to hear about the Model One feasibility program, future availability, and updates.</p>
+      <form name="model-one-interest" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/?interest=success#customer-interest">
+        <input type="hidden" name="form-name" value="model-one-interest">
+        <p hidden><label>Do not fill this out: <input name="bot-field"></label></p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;">
+          <label>Full name<br><input required name="name" autocomplete="name" style="width:100%;padding:.8rem;border:1px solid #cbd5e1;border-radius:8px;"></label>
+          <label>Email address<br><input required type="email" name="email" autocomplete="email" style="width:100%;padding:.8rem;border:1px solid #cbd5e1;border-radius:8px;"></label>
+          <label>Country / region<br><input name="location" autocomplete="country-name" style="width:100%;padding:.8rem;border:1px solid #cbd5e1;border-radius:8px;"></label>
+          <label>What are you interested in?
+            <select name="interest" style="width:100%;padding:.8rem;border:1px solid #cbd5e1;border-radius:8px;">
+              <option>Model One updates</option><option>Future availability</option><option>Test-drive information (when available)</option><option>Partnership / supplier information</option>
+            </select>
+          </label>
+        </div>
+        <label style="display:block;margin:1rem 0;">Message (optional)<br><textarea name="message" rows="4" style="width:100%;padding:.8rem;border:1px solid #cbd5e1;border-radius:8px;"></textarea></label>
+        <button type="submit" class="btn btn-primary" style="border:0;cursor:pointer;">Submit Interest</button>
+      </form>
+      <p style="font-size:.85rem;color:#5a6a7a;margin-top:1rem;">Submitting this form is a non-binding expression of interest only. CVS Model One is a feasibility-stage concept; orders, deposits, pricing, delivery dates, and test drives are not currently offered or guaranteed.</p>
+      <div id="interest-success" role="status" style="display:none;padding:1rem;margin-top:1rem;background:#e7f6ec;border-radius:8px;">Thank you. Your interest has been submitted. This confirmation appears only after the site is configured to process form submissions.</div>
+    </div>
+  </section>
+
+  <footer>
+    <strong>CVS Automotive</strong> · Engineering Tomorrow's Mobility
+    <div class="disclaimer">
+      This is a concept and feasibility-stage project. Performance figures are targets only.
+      Not an offering of securities. All rights reserved © 2026 CVS Automotive.
+    </div>
+  </footer>
+
+<script>
+  if (new URLSearchParams(location.search).get('interest') === 'success') { const el=document.getElementById('interest-success'); if(el) el.style.display='block'; }
+  </script>
+</body>
+</html>
